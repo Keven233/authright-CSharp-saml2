@@ -75,11 +75,12 @@ namespace com.authright.saml2.Protocol
         {
             SAML20FederationConfig configuration = SAML20FederationConfig.GetConfig();
 
-            KeyInfo keyinfo = new KeyInfo();
-            KeyInfoX509Data keyClause = new KeyInfoX509Data(FederationConfig.GetConfig().SigningCertificate.GetCertificate(), X509IncludeOption.EndCertOnly);
-            keyinfo.AddClause(keyClause);
+            //KeyInfo keyinfo = new KeyInfo();
+            //KeyInfoX509Data keyClause = new KeyInfoX509Data(FederationConfig.GetConfig().SigningCertificate.GetCertificate(), X509IncludeOption.EndCertOnly);
+            //keyinfo.AddClause(keyClause);
 
-            Saml20MetadataDocument doc = new Saml20MetadataDocument(configuration, keyinfo, sign);
+            //Saml20MetadataDocument doc = new Saml20MetadataDocument(configuration, keyinfo, sign);
+            Saml20MetadataDocument doc = new Saml20MetadataDocument(configuration, null, sign);
 
             context.Response.Write(doc.ToXml( context.Response.ContentEncoding ));
         }

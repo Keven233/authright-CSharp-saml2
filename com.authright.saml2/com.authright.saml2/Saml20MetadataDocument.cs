@@ -189,19 +189,22 @@ namespace com.authright.saml2
             entity.Items = new object[] { spDescriptor };
 
             // Keyinfo
-            KeyDescriptor keySigning = new KeyDescriptor();
-            KeyDescriptor keyEncryption = new KeyDescriptor();
-            spDescriptor.KeyDescriptor = new KeyDescriptor[] { keySigning, keyEncryption };
+            if (null != keyinfo) {
+           
+                KeyDescriptor keySigning = new KeyDescriptor();
+                KeyDescriptor keyEncryption = new KeyDescriptor();
+                spDescriptor.KeyDescriptor = new KeyDescriptor[] { keySigning, keyEncryption };
             
-            keySigning.use = KeyTypes.signing;
-            keySigning.useSpecified = true;
+                keySigning.use = KeyTypes.signing;
+                keySigning.useSpecified = true;
 
-            keyEncryption.use = KeyTypes.encryption;
-            keyEncryption.useSpecified = true;
+                keyEncryption.use = KeyTypes.encryption;
+                keyEncryption.useSpecified = true;
                        
-            // Ugly conversion between the .Net framework classes and our classes ... avert your eyes!!
-            keySigning.KeyInfo = Serialization.DeserializeFromXmlString<Schema.XmlDSig.KeyInfo>(keyinfo.GetXml().OuterXml);            
-            keyEncryption.KeyInfo = keySigning.KeyInfo;
+                // Ugly conversion between the .Net framework classes and our classes ... avert your eyes!!
+                keySigning.KeyInfo = Serialization.DeserializeFromXmlString<Schema.XmlDSig.KeyInfo>(keyinfo.GetXml().OuterXml);            
+                keyEncryption.KeyInfo = keySigning.KeyInfo;
+            }
 
             // apply the <Organization> element
             if (config.ServiceProvider.Organization != null)
