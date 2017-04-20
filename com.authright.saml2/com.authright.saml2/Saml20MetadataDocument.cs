@@ -158,7 +158,7 @@ namespace com.authright.saml2
             }
 
             // Attribute consuming service. 
-            if (config.RequestedAttributes.Attributes.Count > 0)
+            if (config.RequestedAttributes !=null && config.RequestedAttributes.Attributes.Count > 0)
             {
                 AttributeConsumingService attConsumingService = new AttributeConsumingService();
                 spDescriptor.AttributeConsumingService = new AttributeConsumingService[] { attConsumingService };

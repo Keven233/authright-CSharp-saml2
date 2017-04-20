@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Class="com.authright.saml2.Protocol.Saml20MetadataHandler" %>

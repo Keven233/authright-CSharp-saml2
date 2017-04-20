@@ -38,7 +38,7 @@ namespace com.authright.saml2.Protocol
                 return;
             }
 
-            bool sign = true;
+            bool sign = false;
             try
             {
                 string param = context.Request.QueryString["sign"];                
@@ -75,12 +75,11 @@ namespace com.authright.saml2.Protocol
         {
             SAML20FederationConfig configuration = SAML20FederationConfig.GetConfig();
 
-            //KeyInfo keyinfo = new KeyInfo();
-            //KeyInfoX509Data keyClause = new KeyInfoX509Data(FederationConfig.GetConfig().SigningCertificate.GetCertificate(), X509IncludeOption.EndCertOnly);
-            //keyinfo.AddClause(keyClause);
+            KeyInfo keyinfo = new KeyInfo();
+            KeyInfoX509Data keyClause = new KeyInfoX509Data(FederationConfig.GetConfig().SigningCertificate.GetCertificate(), X509IncludeOption.EndCertOnly);
+            keyinfo.AddClause(keyClause);
 
-            //Saml20MetadataDocument doc = new Saml20MetadataDocument(configuration, keyinfo, sign);
-            Saml20MetadataDocument doc = new Saml20MetadataDocument(configuration, null, sign);
+            Saml20MetadataDocument doc = new Saml20MetadataDocument(configuration, keyinfo, sign);
 
             context.Response.Write(doc.ToXml( context.Response.ContentEncoding ));
         }
